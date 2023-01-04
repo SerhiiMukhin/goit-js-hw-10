@@ -5,14 +5,19 @@ import { fetchCountries } from './fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 
-// fetchCountries('ukraine')
-// .then(country => console.log(country))
-
 const input = document.querySelector('#search-box');
 const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
 input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
+
+function resetCountryList() {
+    countryList.innerHTML = '';
+}
+
+function resetCountryInfo() {
+    countryInfo.innerHTML = '';
+}
 
 function onInput() {
   let inputValue = input.value.trim();
@@ -25,11 +30,13 @@ function onInput() {
 function renderMarkup(countries) {
   if (countries.length >= 10) {
     Notify.info('Too many matches found. Please enter a more specific name.');
+    resetCountryList();
+    resetCountryInfo();
   }
   if (countries.length >= 2 && countries.length < 10) {
     Notify.info('From 2 to 10 countries left');
-    countryList.innerHTML = '';
-    countryInfo.innerHTML = '';
+    resetCountryList();
+    resetCountryInfo();
     countryList.innerHTML = countries
       .map(
         ({ flags, name }) =>
@@ -48,8 +55,8 @@ function renderMarkup(countries) {
     //ТУТ БУДЕ ВИВОДИТИСЯ СПИСОК КРАЇН
   }
   if (countries.length === 1) {
-    Notify.info('You find your country!');
-    countryList.innerHTML = '';
+    Notify.info('We find your country!');
+    resetCountryList();
     countryInfo.innerHTML = countries
       .map(
         ({ flags, name, capital, population, languages }) =>
