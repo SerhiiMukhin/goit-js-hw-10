@@ -12,32 +12,31 @@ const countryInfo = document.querySelector('.country-info');
 input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
 function resetCountryList() {
-    countryList.innerHTML = '';
+  countryList.innerHTML = '';
 }
 
 function resetCountryInfo() {
-    countryInfo.innerHTML = '';
+  countryInfo.innerHTML = '';
 }
 
 function onInput() {
   let inputValue = input.value.trim();
-  if(inputValue === '') {
+  if (inputValue === '') {
     resetCountryList();
     resetCountryInfo();
     Notiflix.Notify.info('Please enter country name');
   } else {
-  // console.log(inputValue)
-  fetchCountries(inputValue)
-  .then(response => {
-    if (!response.ok) {
-      resetCountryList();
-      resetCountryInfo();
-      Notiflix.Notify.failure('Oops, there is no country with that name');
-    }
-    return response.json();
-  })
-    .then(countries => renderMarkup(countries))
-    .catch(error => console.log(error))
+    fetchCountries(inputValue)
+      .then(response => {
+        if (!response.ok) {
+          resetCountryList();
+          resetCountryInfo();
+          Notiflix.Notify.failure('Oops, there is no country with that name');
+        }
+        return response.json();
+      })
+      .then(countries => renderMarkup(countries))
+      .catch(error => console.log(error));
   }
 }
 
@@ -46,8 +45,7 @@ function renderMarkup(countries) {
     Notify.info('Too many matches found. Please enter a more specific name.');
     resetCountryList();
     resetCountryInfo();
-  }
-  if (countries.length >= 2 && countries.length < 10) {
+  } else if (countries.length >= 2 && countries.length < 10) {
     Notify.info('From 2 to 10 countries left');
     resetCountryList();
     resetCountryInfo();
@@ -67,8 +65,7 @@ function renderMarkup(countries) {
       )
       .join('');
     //ТУТ БУДЕ ВИВОДИТИСЯ СПИСОК КРАЇН
-  }
-  if (countries.length === 1) {
+  } else if (countries.length === 1) {
     Notify.info('We find your country!');
     resetCountryList();
     countryInfo.innerHTML = countries
