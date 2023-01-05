@@ -1,0 +1,28 @@
+{
+    "flags": {
+        "png": "https://flagcdn.com/w320/at.png",
+        "svg": "https://flagcdn.com/at.svg"
+    },
+    "name": {
+        "common": "Austria",
+        "official": "Republic of Austria",
+        "nativeName": {
+            "bar": {
+                "official": "Republik Österreich",
+                "common": "Österreich"
+            }
+        }
+    },
+    "capital": [
+        "Vienna"
+    ],
+    "altSpellings": [
+        "AT",
+        "Osterreich",
+        "Oesterreich"
+    ],
+    "languages": {
+        "bar": "Austro-Bavarian German"
+    },
+    "population": 8917205
+}

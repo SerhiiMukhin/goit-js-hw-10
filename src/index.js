@@ -21,10 +21,24 @@ function resetCountryInfo() {
 
 function onInput() {
   let inputValue = input.value.trim();
+  if(inputValue === '') {
+    resetCountryList();
+    resetCountryInfo();
+    Notiflix.Notify.info('Please enter country name');
+  } else {
   // console.log(inputValue)
   fetchCountries(inputValue)
+  .then(response => {
+    if (!response.ok) {
+      resetCountryList();
+      resetCountryInfo();
+      Notiflix.Notify.failure('Oops, there is no country with that name');
+    }
+    return response.json();
+  })
     .then(countries => renderMarkup(countries))
-    .catch(error => console.log(error));
+    .catch(error => console.log(error))
+  }
 }
 
 function renderMarkup(countries) {
